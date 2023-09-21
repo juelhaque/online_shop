@@ -89,7 +89,7 @@
             var element = $(this);
             $('button[type=submit]').prop('disabled', true);
             $.ajax({
-                url: '{{ route('categories.store') }}',
+                url: "{{ route('categories.store') }}",
                 type: 'post',
                 data: element.serializeArray(),
                 dataType: 'json',
@@ -97,7 +97,7 @@
                     $('button[type=submit]').prop('disabled', false);
                     if (response['status'] == true) {
 
-                        window.location.href='{{ route('categories.index') }}';
+                        window.location.href='{{ route("categories.index") }}';
 
                         $("#name").removeClass('is-invalid')
                         .siblings('p').removeClass('invalid-feedback').html();
@@ -113,7 +113,7 @@
                         }
                         else{
                             $("#name").removeClass('is-invalid')
-                            .siblings('p').removeClass('invalid-feedback').html();
+                            .siblings('p').removeClass('invalid-feedback').html('');
                         }
 
                         if (errors['slug']) {
@@ -122,7 +122,7 @@
                         }
                         else{
                             $("#slug").removeClass('is-invalid')
-                            .siblings('p').removeClass('invalid-feedback').html();
+                            .siblings('p').removeClass('invalid-feedback').html('');
                         }
                     }
 

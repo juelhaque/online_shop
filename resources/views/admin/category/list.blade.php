@@ -135,7 +135,7 @@
                     success: function(response){
                         if (response['status']) {
 
-                        window.location.href='{{ route('categories.index') }}';
+                        window.location.href='{{ route("categories.index") }}';
 
                         }
                     }
