@@ -292,7 +292,6 @@
     });
 
     $("#country").change(function(){
-
         $.ajax({
             url: '{{ route("front.getOrderSummery") }}',
             type: 'post',

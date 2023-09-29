@@ -158,19 +158,26 @@ class CartController extends Controller
 
         $countries = Country::orderBy('name', 'ASC')->get();
 
-        //calculate shipping charges
-        $userCountry = $customerAddress->country_id;
-        $shippingInfo = ShippingCharge::where('country_id', $userCountry)->first();
+        //calculate shipping here
+        if ($customerAddress != '') {
 
-        $totalQty = 0;
-        $totalShippingCharge = 0;
-        $grandTotal = 0;
-        foreach (Cart::content() as $item) {
-            $totalQty += $item->qty;
+            $userCountry = $customerAddress->country_id;
+            $shippingInfo = ShippingCharge::Where('country_id', $userCountry)->first();
+
+            $totalQty = 0;
+            $totalShippingCharge = 0;
+            $grandTotal = 0;
+            foreach (Cart::content() as $item) {
+                $totalQty += $item->qty;
+            }
+
+            $totalShippingCharge = $totalQty * $shippingInfo->amount;
+            $grandTotal = Cart::subtotal(2, '.', '')+$totalShippingCharge;
+
+        }else{
+            $grandTotal = Cart::subtotal(2, '.', '');
+            $totalShippingCharge = 0;
         }
-
-        $totalShippingCharge = $totalQty * $shippingInfo->amount;
-        $grandTotal = Cart::subtotal(2, '.', '')+$totalShippingCharge;
 
         return view('front.checkout', [
             'countries' => $countries,
@@ -232,7 +239,7 @@ class CartController extends Controller
             $subTotal = Cart::subtotal(2,'.','');
 
             //Calculate Shipping
-            $shippingInfo = ShippingCharge::where('country_id', $request->country_id)->first();
+            $shippingInfo = ShippingCharge::where('country_id', $request->country)->first();
 
             $totalQty = 0;
             foreach (Cart::content() as $item) {
@@ -321,12 +328,12 @@ class CartController extends Controller
             if ($shippingInfo != null) {
 
                 $shippingCharge = $totalQty*$shippingInfo->amount;
-                $grandTotal = $shippingCharge+$subTotal;
+                $grandTotal = $subTotal+$shippingCharge;
 
                 return response()->json([
                     'status' => true,
                     'grandTotal' => number_format($grandTotal, 2),
-                    'shippingCharge' => number_format($shippingCharge, 2),
+                    'shippingCharge' => number_format($shippingCharge, 2)
                 ]);
 
             }else{
