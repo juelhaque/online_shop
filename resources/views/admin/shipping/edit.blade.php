@@ -9,7 +9,7 @@
                     <h1>Shipping Manegment Edit</h1>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{ route('categories.index') }}" class="btn btn-primary">Back</a>
+                    <a href="{{ route('shipping.index') }}" class="btn btn-primary">Back</a>
                 </div>
             </div>
         </div>
