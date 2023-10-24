@@ -150,16 +150,16 @@
                                     <td>
                                         <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
                                     </td>
-                                </tr>                                
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="col-md-4">            
+                <div class="col-md-4">
                     <div class="card cart-summery">
                         <div class="sub-title">
                             <h2 class="bg-white">Cart Summery</h3>
-                        </div> 
+                        </div>
                         <div class="card-body">
                             <div class="d-flex justify-content-between pb-2">
                                 <div>Subtotal</div>
@@ -177,11 +177,11 @@
                                 <a href="login.php" class="btn-dark btn btn-block w-100">Proceed to Checkout</a>
                             </div>
                         </div>
-                    </div>     
+                    </div>
                     <div class="input-group apply-coupan mt-4">
                         <input type="text" placeholder="Coupon Code" class="form-control">
                         <button class="btn btn-dark" type="button" id="button-addon2">Apply Coupon</button>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\DiscountCodeController;
 use App\Http\Controllers\admin\HomeController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
@@ -45,6 +46,8 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('front.checko
 Route::post('/process-checkout', [CartController::class, 'processCheckout'])->name('front.processCheckout');
 Route::get('/thanks/{orderId}', [CartController::class, 'thankYou'])->name('front.thankYou');
 Route::post('/get-order-summery', [CartController::class, 'getOrderSummery'])->name('front.getOrderSummery');
+Route::post('/apply-discount', [CartController::class, 'applyDiscount'])->name('front.applyDiscount');
+Route::post('/remove-discount', [CartController::class, 'removeCoupon'])->name('front.removeCoupon');
 
 
 Route::group(['prefix' => 'account'], function(){
@@ -58,6 +61,8 @@ Route::group(['prefix' => 'account'], function(){
 
     Route::group(['middleware' => 'auth'], function(){
         Route::get('/profile', [AuthController::class, 'profile'])->name('account.profile');
+        Route::get('/my-orders', [AuthController::class, 'orders'])->name('account.orders');
+        Route::get('/order-detail/{orderId}', [AuthController::class, 'orderDetail'])->name('account.orderDetail');
         Route::get('/logout', [AuthController::class, 'logout'])->name('account.logout');
     });
 });
@@ -129,6 +134,11 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/coupons/{coupon}/edit', [DiscountCodeController::class, 'edit'])->name('coupons.edit');
         Route::put('/coupons/{coupon}', [DiscountCodeController::class, 'update'])->name('coupons.update');
         Route::delete('/coupons/{coupon}', [DiscountCodeController::class, 'destroy'])->name('coupons.delete');
+
+
+        // Orders controller
+        Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{id}', [OrderController::class, 'detail'])->name('orders.detail');
 
 
         // temp-images.create
