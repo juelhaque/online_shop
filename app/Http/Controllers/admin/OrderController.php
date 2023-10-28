@@ -39,4 +39,29 @@ class OrderController extends Controller
         $data['orderItems'] = $orderItems;
         return view('admin.orders.detail', $data);
     }
+
+
+    public function changeOrderStatus(Request $request, $orderId){
+        $order = Order::find($orderId);
+        $order->status = $request->status;
+        $order->shipped_date = $request->shipped_date;
+        $order->save();
+
+        session()->flash('success', 'Order status updated successfully');
+        return response()->json([
+            'status' => true,
+            'message' => 'Order status updated successfully'
+        ]);
+    }
+
+
+    public function sendInvoiceEmail(Request $request, $orderId){
+        orderEmail($orderId, $request->userType);
+
+        session()->flash('success', 'Order send successfully');
+        return response()->json([
+            'status' => true,
+            'message' => 'Order send successfully'
+        ]);
+    }
 }
