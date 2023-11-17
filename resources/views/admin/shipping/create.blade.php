@@ -9,7 +9,7 @@
                     <h1>Shipping Manegment</h1>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{ route('categories.index') }}" class="btn btn-primary">Back</a>
+                    <a href="{{ route('shipping.create') }}" class="btn btn-primary">Back</a>
                 </div>
             </div>
         </div>
@@ -28,12 +28,12 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <select name="country" id="country" class="form-control">
-                                        <option value="">Select a country</option>
+                                        <option value="">Select Area</option>
                                         @if ($countries->isNotEmpty())
                                             @foreach ($countries as $country)
                                             <option value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
-                                            <option value="rest_of_world">Rest of world</option>
+                                            <option value="rest_of_country">Rest of Country</option>
                                         @endif
                                     </select>
                                     <p></p>
@@ -72,8 +72,8 @@
                                         @foreach ($shippingCharges as $shippingCharge)
                                             <tr>
                                             <th>{{ $shippingCharge->id }}</th>
-                                            <td>{{ ($shippingCharge->country_id == 'rest_of_world') ? 'Rest of the world' : $shippingCharge->name }}</td>
-                                            <td>{{ $shippingCharge->amount }}</td>
+                                            <td>{{ ($shippingCharge->country_id == 'rest_of_country') ? 'Rest of the Country' : $shippingCharge->name }}</td>
+                                            <td>&#2547;{{ $shippingCharge->amount }}</td>
                                             <td>
                                                 <a href="{{ route('shipping.edit', $shippingCharge->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                                 <a href="javascript:void(0);" onclick="deleteRecord({{ $shippingCharge->id }})" class="btn btn-sm btn-danger">Delete</a>

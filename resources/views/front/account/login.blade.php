@@ -1,4 +1,4 @@
-@extends('front.layouts.app');
+@extends('front.layouts.app')
 
 @section('content')
 <section class="section-5 pt-3 pb-3 mb-3 bg-white">
@@ -24,6 +24,7 @@
                 <h4><i class="icon fa fa-ban"></i> Error!</h4> {{ Session::get('error') }}
             </div>
         @endif
+        {{-- @include('admin.message') --}}
         <div class="login-form">
             <form action="{{ route('account.authenticate') }}" method="post">
                 @csrf
@@ -40,9 +41,9 @@
                         <p class="invalid-feedback">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="form-group small">
+                {{-- <div class="form-group small">
                     <a href="#" class="forgot-link">Forgot Password?</a>
-                </div>
+                </div> --}}
                 <input type="submit" class="btn btn-dark btn-block btn-lg" value="Login">
             </form>
             <div class="text-center small">Don't have an account? <a href="{{ route('account.register') }}">Sign up</a></div>

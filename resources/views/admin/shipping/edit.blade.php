@@ -9,7 +9,7 @@
                     <h1>Shipping Manegment Edit</h1>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{ route('shipping.index') }}" class="btn btn-primary">Back</a>
+                    <a href="{{ route('shipping.create') }}" class="btn btn-primary">Back</a>
                 </div>
             </div>
         </div>
@@ -28,12 +28,12 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <select name="country" id="country" class="form-control">
-                                        <option value="">Select a country</option>
+                                        <option value="">Select Area</option>
                                         @if ($countries->isNotEmpty())
                                             @foreach ($countries as $country)
                                             <option {{ ($shippingCharge->country_id == $country->id) ? 'selected' : '' }} value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
-                                            <option {{ ($shippingCharge->country_id == "rest_of_world") ? 'selected' : '' }} value="rest_of_world">Rest of world</option>
+                                            <option {{ ($shippingCharge->country_id == "rest_of_country") ? 'selected' : '' }} value="rest_of_country">Rest of country</option>
                                         @endif
                                     </select>
                                     <p></p>

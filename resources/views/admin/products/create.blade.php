@@ -233,7 +233,7 @@
             }
         }
     });
-    
+
     $('#title').change(function(){
         element = $(this);
         $('button[type=submit]').prop('disabled', true);
@@ -257,7 +257,7 @@
         $('button[type=submit]').prop('disabled', true);
 
         $.ajax({
-            url: '{{ route('products.store') }}',
+            url: "{{ route('products.store') }}",
             type: 'post',
             data: formArray,
             dataType: 'json',

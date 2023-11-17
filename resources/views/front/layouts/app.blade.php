@@ -52,20 +52,22 @@
 
     <div class="bg-light top-header">
         <div class="container">
-            <div class="row align-items-center py-3 d-none d-lg-flex justify-content-between">
+            <div class="row align-items-center py-2 d-none d-lg-flex justify-content-between">
                 <div class="col-lg-4 logo">
                     <a href="{{ route('front.home') }}" class="text-decoration-none">
-                        <span class="h1 text-uppercase text-primary bg-dark px-2">Online</span>
-                        <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">SHOP</span>
+                        {{-- <span class="h1 text-uppercase text-primary bg-dark px-2">Online</span> --}}
+                        <img src="{{ asset('front-assets/images/rjs-logo.jpg') }}" alt="" style="height: 50px; width: 80px;">
+                        <span class="text-uppercase text-dark bg-primary px-2 ml-n1" style="font-size: 1.6rem; ">E-MART</span>
                     </a>
                 </div>
                 <div class="col-lg-6 col-6 text-left  d-flex justify-content-end align-items-center">
                     @if (Auth::check())
                         <a href="{{ route('account.profile') }}" class="nav-link text-dark">My Account</a>
                     @else
-                        <a href="{{ route('account.login') }}" class="nav-link text-dark">Login/Register</a>
+                        <a href="{{ route('account.login') }}" class="nav-link text-dark hov">Sign in</a>|
+                        <a href="{{ route('account.register') }}" class="nav-link text-dark hov">Sign up</a>
                     @endif
-                    <form action="">
+                    {{-- <form action="">
                         <div class="input-group">
                             <input type="text" placeholder="Search For Products" class="form-control"
                                 aria-label="Amount (to the nearest dollar)">
@@ -73,13 +75,13 @@
                                 <i class="fa fa-search"></i>
                             </span>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>
     </div>
 
-    <header class="bg-dark">
+    <header class="bg-dark" style="background: #3D0C11">
         <div class="container">
             <nav class="navbar navbar-expand-xl" id="navbar">
                 <a href="index.php" class="text-decoration-none mobile-logo">
@@ -115,7 +117,6 @@
                             </li>
                             @endforeach
                         @endif
-
                     </ul>
                 </div>
                 <div class="right-nav py-0">
@@ -128,7 +129,7 @@
     </header>
 
     <main>
-        @yield('content');
+        @yield('content')
     </main>
 
     <footer class="bg-dark mt-5">
@@ -137,10 +138,10 @@
                 <div class="col-md-4">
                     <div class="footer-card">
                         <h3>Get In Touch</h3>
-                        <p>No dolore ipsum accusam no lorem. <br>
-                            123 Street, New York, USA <br>
-                            exampl@example.com <br>
-                            000 000 0000</p>
+                        <p>Banjara Hills location offers a range of options.<br>
+                            Mirpur-1, Dhaka, Bangladesh <br>
+                            onlineshop@gmail.com <br>
+                            01713-723536</p>
                     </div>
                 </div>
 
@@ -148,8 +149,8 @@
                     <div class="footer-card">
                         <h3>Important Links</h3>
                         <ul>
-                            <li><a href="about-us.php" title="About">About</a></li>
-                            <li><a href="contact-us.php" title="Contact Us">Contact Us</a></li>
+                            <li><a href="#" title="About">About</a></li>
+                            <li><a href="#" title="Contact Us">Contact Us</a></li>
                             <li><a href="#" title="Privacy">Privacy</a></li>
                             <li><a href="#" title="Privacy">Terms & Conditions</a></li>
                             <li><a href="#" title="Privacy">Refund Policy</a></li>
@@ -161,9 +162,9 @@
                     <div class="footer-card">
                         <h3>My Account</h3>
                         <ul>
-                            <li><a href="#" title="Sell">Login</a></li>
-                            <li><a href="#" title="Advertise">Register</a></li>
-                            <li><a href="#" title="Contact Us">My Orders</a></li>
+                            <li><a href="{{ route('account.login') }}" title="Sell">Login</a></li>
+                            <li><a href="{{ route('account.register') }}" title="Advertise">Register</a></li>
+                            <li><a href="{{ route('account.profile') }}" title="Contact Us">My Orders</a></li>
                         </ul>
                     </div>
                 </div>
@@ -174,7 +175,7 @@
                 <div class="row">
                     <div class="col-12 mt-3">
                         <div class="copy-right text-center">
-                            <p>© Copyright 2022 Amazing Shop. All Rights Reserved</p>
+                            <p>© Copyright 2023 Online Shop. All Rights Reserved</p>
                         </div>
                     </div>
                 </div>

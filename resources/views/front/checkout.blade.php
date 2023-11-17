@@ -48,7 +48,7 @@
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <select name="country" id="country" class="form-control">
-                                            <option value="">Select a Country</option>
+                                            <option value="">Select Area</option>
                                             @if ($countries->isNotEmpty())
                                                 @foreach ($countries as $country)
                                                     <option {{ (!empty($customerAddress) && $customerAddress->country_id == $country->id) ? 'selected' : '' }} value="{{ $country->id }}">{{ $country->name }}</option>
@@ -119,24 +119,24 @@
                             @foreach (Cart::content() as $item)
                                 <div class="d-flex justify-content-between pb-2">
                                     <div class="h6">{{ $item->name }} X {{ $item->qty }}</div>
-                                    <div class="h6">${{ $item->price*$item->qty }}</div>
+                                    <div class="h6">&#2547;{{ $item->price*$item->qty }}</div>
                                 </div>
                             @endforeach
                             <div class="d-flex justify-content-between summery-end">
                                 <div class="h6"><strong>Subtotal</strong></div>
-                                <div class="h6"><strong>${{ Cart::subtotal() }}</strong></div>
+                                <div class="h6"><strong>&#2547;{{ Cart::subtotal() }}</strong></div>
                             </div>
                             <div class="d-flex justify-content-between summery-end">
                                 <div class="h6"><strong>Discount</strong></div>
-                                <div class="h6"><strong id="discount_value">${{ $discount }}</strong></div>
+                                <div class="h6"><strong id="discount_value">&#2547;{{ $discount }}</strong></div>
                             </div>
                             <div class="d-flex justify-content-between mt-2">
                                 <div class="h6"><strong>Shipping</strong></div>
-                                <div class="h6"><strong id="shippingAmount">${{ number_format($totalShippingCharge, 2) }}</strong></div>
+                                <div class="h6"><strong id="shippingAmount">&#2547;{{ number_format($totalShippingCharge, 2) }}</strong></div>
                             </div>
                             <div class="d-flex justify-content-between mt-2 summery-end">
                                 <div class="h5"><strong>Total</strong></div>
-                                <div class="h5"><strong id="grandTotal">${{ number_format($grandTotal, 2) }}</strong></div>
+                                <div class="h5"><strong id="grandTotal">&#2547;{{ number_format($grandTotal, 2) }}</strong></div>
                             </div>
                         </div>
                     </div>
@@ -162,32 +162,33 @@
                             <label for="payment_method_one" class="from-check-label">Cash One Delivery</label>
                         </div>
                         <div class="from-check">
-                            <input type="radio" name="payment_method" value="cod" id="payment_method_two">
-                            <label for="payment_method_two" class="from-check-label">Stripe</label>
+                            <input type="radio" name="payment_method" value="bkash" id="payment_method_two">
+                            <label for="payment_method_two" class="from-check-label"><img src="{{ asset('front-assets/images/BKash-Icon-Logo.wine.png') }}" alt="" style="width: 36px; height: 24px;">bKash</label>
                         </div>
 
                         <div class="card-body p-0 mt-2 d-none" id="card_payment_form">
-                            <div class="mb-3">
-                                <label for="card_number" class="mb-2">Card Number</label>
-                                <input type="text" name="card_number" id="card_number" placeholder="Valid Card Number" class="form-control">
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="expiry_date" class="mb-2">Expiry Date</label>
-                                    <input type="text" name="expiry_date" id="expiry_date" placeholder="MM/YYYY" class="form-control">
+                            {{-- <form action=""> --}}
+                                <p>Please Pay to: <span style="color: red">01700-000000</span></p>
+                                <div class="mb-3">
+                                    <label for="account_name" class="mb-2">Account holder name</label>
+                                    <input type="text" name="account_name" id="account_name" placeholder="Account holder name" class="form-control">
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="expiry_date" class="mb-2">CVV Code</label>
-                                    <input type="text" name="expiry_date" id="expiry_date" placeholder="123" class="form-control">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="account_number" class="mb-2">Account number</label>
+                                        <input type="text" name="account_number" id="account_number" class="form-control" style="padding: 4px 4px;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="trax_id" class="mb-2">Transaction ID</label>
+                                        <input type="text" name="trax_id" id="trax_id" class="form-control" style="padding: 4px 4px;">
+                                    </div>
                                 </div>
-                            </div>
+                            {{-- </form> --}}
                         </div>
                         <div class="pt-4">
                             <button type="submit" class="btn-dark btn btn-block w-100">Pay Now</button>
                         </div>
                     </div>
-
-                    <!-- CREDIT CARD FORM ENDS HERE -->
 
                 </div>
             </div>

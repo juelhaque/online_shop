@@ -116,21 +116,19 @@
                                             @endif
                                         </a>
 
-                                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
-
                                         <div class="product-action">
                                             <a class="btn btn-dark" href="javascript:void(0);" onclick="addToCart({{ $product->id }})">
                                                 <i class="fa fa-shopping-cart"></i> Add To Cart
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="card-body text-center mt-3">
+                                    <div class="card-body text-center">
                                         <a class="h6 link" href="product.php">{{ $product->title }}</a>
+                                        <p style="margin-bottom: 0.5rem; font-size: 13px">{{ $product->qty }} left in Stock</p>
                                         <div class="price mt-2">
-                                            <span class="h5"><strong>${{ $product->price }}</strong></span>
-
+                                            <span class="h5"><strong>&#2547;{{ $product->price }}</strong></span>
                                             @if ($product->compare_price > 0)
-                                            <span class="h6 text-underline"><del>${{ $product->compare_price }}</del></span>
+                                            <span class="h6 text-underline"><del>&#2547;{{ $product->compare_price }}</del></span>
                                             @endif
                                         </div>
                                     </div>

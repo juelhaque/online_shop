@@ -32,6 +32,9 @@ return new class extends Migration
             $table->string('state');
             $table->string('zip');
             $table->text('notes')->nullable();
+            $table->string('account_name')->nullable();
+            $table->double('account_number')->nullable();
+            $table->string('trax_id')->nullable();
             $table->timestamps();
         });
     }

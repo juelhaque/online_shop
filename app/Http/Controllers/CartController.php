@@ -314,6 +314,9 @@ class CartController extends Controller
             $order->state = $request->state;
             $order->zip = $request->zip;
             $order->notes = $request->order_notes;
+            // $order->account_name = $request->account_name;
+            // $order->account_number = $request->account_number;
+            // $order->trax_id = $request->trax_id;
             $order->save();
 
             // step-4 Save order items in order_items table
@@ -344,6 +347,101 @@ class CartController extends Controller
 
         }else{
 
+        }
+
+        if ($request->payment_method == 'bkash') {
+            $discountCodeId = NULL;
+            $promoCode = '';
+            $shipping = 0;
+            $discount = 0;
+            $subTotal = Cart::subtotal(2,'.','');
+
+            // Apply discount here
+            if (session()->has('code')) {
+                $code = session()->get('code');
+
+                if ($code->type == 'percent') {
+                    $discount = ($code->discount_amount/100)*$subTotal;
+                }else{
+                    $discount = $code->discount_amount;
+                }
+
+                $discountCodeId = $code->id;
+                $promoCode = $code->code;
+            }
+
+            //Calculate Shipping
+            $shippingInfo = ShippingCharge::where('country_id', $request->country)->first();
+
+            $totalQty = 0;
+            foreach (Cart::content() as $item) {
+                $totalQty += $item->qty;
+            }
+
+            if ($shippingInfo != null) {
+
+                $shipping = $totalQty*$shippingInfo->amount;
+                $grandTotal = ($subTotal-$discount)+$shipping;
+
+            }else{
+
+                $shippingInfo = ShippingCharge::where('country_id', 'rest_of_world')->first();
+
+                $shipping = $totalQty*$shippingInfo->amount;
+                $grandTotal = ($subTotal-$discount)+$shipping;
+            }
+
+            $order = new Order;
+            $order->subtotal = $subTotal;
+            $order->shipping = $shipping;
+            $order->grant_total = $grandTotal;
+            $order->discount = $discount;
+            $order->coupon_code_id = $discountCodeId;
+            $order->coupon_code = $promoCode;
+            $order->payment_status = 'not paid';
+            $order->status = 'pending';
+            $order->user_id = $user->id;
+            $order->first_name = $request->first_name;
+            $order->last_name = $request->last_name;
+            $order->email = $request->email;
+            $order->mobile = $request->mobile;
+            $order->country_id = $request->country;
+            $order->address = $request->address;
+            $order->apartment = $request->apartment;
+            $order->city = $request->city;
+            $order->state = $request->state;
+            $order->zip = $request->zip;
+            $order->notes = $request->order_notes;
+            $order->account_name = $request->account_name;
+            $order->account_number = $request->account_number;
+            $order->trax_id = $request->trax_id;
+            $order->save();
+
+            // step-4 Save order items in order_items table
+            foreach (Cart::content() as $item) {
+                $orderItem = new OrderItem;
+                $orderItem->product_id = $item->id;
+                $orderItem->order_id = $order->id;
+                $orderItem->name = $item->name;
+                $orderItem->qty = $item->qty;
+                $orderItem->price = $item->price;
+                $orderItem->total = $item->price*$item->qty;
+                $orderItem->save();
+            }
+
+            // Send ordr email
+            orderEmail($order->id, 'customer');
+
+            session()->flash('success', 'You have placed your order successfully');
+            Cart::destroy();
+
+            session()->forget('code');
+
+            return response()->json([
+                'message' => 'Order saved successfully',
+                'orderId' => $order->id,
+                'status' => true
+            ]);
         }
     }
 
